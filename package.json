@@ -1,0 +1,29 @@
+{
+  "name": "secure-token-auth-system",
+  "version": "1.0.0",
+  "description": "Secure Token Authentication System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "jest --forceExit",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "auth",
+    "token",
+    "security"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}
