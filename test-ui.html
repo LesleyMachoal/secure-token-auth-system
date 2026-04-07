@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Token Auth System - Test UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:active {
+            opacity: 0.8;
+        }
+
+        .response {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #333;
+            display: none;
+        }
+
+        .response.show {
+            display: block;
+        }
+
+        .response.success {
+            border-left-color: #4caf50;
+            background: #f1f8f4;
+        }
+
+        .response.error {
+            border-left-color: #f44336;
+            background: #fef1f0;
+            color: #c62828;
+        }
+
+        .token-info {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .token-info.show {
+            display: block;
+        }
+
+        .token-info h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .token-display {
+            background: white;
+            padding: 10px;
+            border-radius: 3px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #333;
+            margin-top: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #4caf50;
+        }
+
+        .protected-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .protected-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .status.online {
+            color: #4caf50;
+        }
+
+        .status.offline {
+            color: #f44336;
+        }
+
+        .status h3 {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Secure Token Auth System</h1>
+            <p>Test API Authentication & Authorization</p>
+        </div>
+
+        <div class="grid">
+            <!-- Register Card -->
+            <div class="card">
+                <h2>📝 Register</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regEmail">Email *</label>
+                        <input type="email" id="regEmail" placeholder="user@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password *</label>
+                        <input type="password" id="regPassword" placeholder="SecurePass123!" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regFirstName">First Name</label>
+                        <input type="text" id="regFirstName" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="regLastName">Last Name</label>
+                        <input type="text" id="regLastName" placeholder="Doe">
+                    </div>
+                    <button type="submit">Register</button>
+                </form>
+                <div id="registerResponse" class="response"></div>
+            </div>
+
+            <!-- Login Card -->
+            <div class="card">
+                <h2>🔑 Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email *</label>
+                        <input type="email" id="loginEmail" placeholder="user@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password *</label>
+                        <input type="password" id="loginPassword" placeholder="SecurePass123!" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <div id="loginResponse" class="response"></div>
+                <div id="tokenInfo" class="token-info">
+                    <h3>✅ Token Received</h3>
+                    <p>Your token has been saved and will be used for protected endpoints.</p>
+                    <div class="token-display" id="tokenDisplay"></div>
+                    <button class="copy-btn" onclick="copyToken()">Copy Token</button>
+                </div>
+            </div>
+
+            <!-- Validate Token Card -->
+            <div class="card">
+                <h2>✔️ Validate Token</h2>
+                <div class="form-group">
+                    <label for="validateToken">Token (Auto-filled from login)</label>
+                    <input type="text" id="validateToken" placeholder="Paste your token here" readonly>
+                </div>
+                <button onclick="validateToken()">Validate Token</button>
+                <div id="validateResponse" class="response"></div>
+            </div>
+
+            <!-- Get Profile Card -->
+            <div class="card">
+                <h2>👤 Get Profile</h2>
+                <p style="color: #666; margin-bottom: 15px;">Retrieve your user profile using the token</p>
+                <button onclick="getProfile()">Get Profile</button>
+                <div id="profileResponse" class="response"></div>
+            </div>
+
+            <!-- Service Status Card -->
+            <div class="card">
+                <h2>📊 Service Status</h2>
+                <button onclick="checkStatus()">Check Status</button>
+                <div id="statusResponse" class="response"></div>
+            </div>
+
+            <!-- Server Health Card -->
+            <div class="card">
+                <h2>💓 Server Health</h2>
+                <button onclick="checkHealth()">Health Check</button>
+                <div id="healthResponse" class="response"></div>
+            </div>
+        </div>
+
+        <!-- Overall Status -->
+        <div class="status" id="overallStatus" style="display: none;">
+            <h3 id="statusText">Checking connection...</h3>
+            <p id="statusDetail"></p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let authToken = localStorage.getItem('authToken') || '';
+
+        // Initialize token display
+        if (authToken) {
+            document.getElementById('validateToken').value = authToken;
+            showTokenInfo();
+        }
+
+        // Register Form
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const firstName = document.getElementById('regFirstName').value;
+            const lastName = document.getElementById('regLastName').value;
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, firstName, lastName })
+                });
+
+                const data = await response.json();
+                displayResponse('registerResponse', data, response.ok);
+
+                if (response.ok) {
+                    document.getElementById('registerForm').reset();
+                    // Auto-fill login form
+                    document.getElementById('loginEmail').value = email;
+                    document.getElementById('loginPassword').value = password;
+                }
+            } catch (error) {
+                displayResponse('registerResponse', { error: error.message }, false);
+            }
+        });
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                displayResponse('loginResponse', data, response.ok);
+
+                if (response.ok && data.token) {
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    document.getElementById('validateToken').value = authToken;
+                    showTokenInfo();
+                }
+            } catch (error) {
+                displayResponse('loginResponse', { error: error.message }, false);
+            }
+        });
+
+        // Validate Token
+        async function validateToken() {
+            if (!authToken) {
+                alert('No token found. Please login first.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/validate`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                const data = await response.json();
+                displayResponse('validateResponse', data, response.ok);
+            } catch (error) {
+                displayResponse('validateResponse', { error: error.message }, false);
+            }
+        }
+
+        // Get Profile
+        async function getProfile() {
+            if (!authToken) {
+                alert('No token found. Please login first.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/profile`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                const data = await response.json();
+                displayResponse('profileResponse', data, response.ok);
+            } catch (error) {
+                displayResponse('profileResponse', { error: error.message }, false);
+            }
+        }
+
+        // Check Status
+        async function checkStatus() {
+            try {
+                const response = await fetch(`${API_URL}/api/auth/status`);
+                const data = await response.json();
+                displayResponse('statusResponse', data, response.ok);
+            } catch (error) {
+                displayResponse('statusResponse', { error: error.message }, false);
+            }
+        }
+
+        // Health Check
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${API_URL}/`);
+                const data = await response.json();
+                displayResponse('healthResponse', data, response.ok);
+            } catch (error) {
+                displayResponse('healthResponse', { error: error.message }, false);
+            }
+        }
+
+        // Display Response
+        function displayResponse(elementId, data, isSuccess) {
+            const element = document.getElementById(elementId);
+            element.textContent = JSON.stringify(data, null, 2);
+            element.classList.add('show');
+            element.classList.toggle('success', isSuccess);
+            element.classList.toggle('error', !isSuccess);
+        }
+
+        // Show Token Info
+        function showTokenInfo() {
+            const tokenInfo = document.getElementById('tokenInfo');
+            tokenInfo.classList.add('show');
+            document.getElementById('tokenDisplay').textContent = authToken;
+        }
+
+        // Copy Token
+        function copyToken() {
+            const token = document.getElementById('tokenDisplay').textContent;
+            navigator.clipboard.writeText(token).then(() => {
+                alert('Token copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy token');
+            });
+        }
+
+        // Pre-fill with test data
+        function prefillTestData() {
+            document.getElementById('regEmail').value = 'testuser@example.com';
+            document.getElementById('regPassword').value = 'TestPass123!';
+            document.getElementById('regFirstName').value = 'Test';
+            document.getElementById('regLastName').value = 'User';
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            prefillTestData();
+            checkHealth();
+        });
+    </script>
+</body>
+</html>
