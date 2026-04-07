@@ -18,6 +18,8 @@ async function loginUser(email, password) {
     token,
     user: {
       email,
+      firstName: 'User',
+      lastName: 'Name',
       id: crypto.randomUUID()
     }
   };

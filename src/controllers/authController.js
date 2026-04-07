@@ -47,7 +47,11 @@ function validate(req, res) {
 function profile(req, res) {
   res.status(200).json({ 
     message: 'User profile retrieved', 
-    user: req.user 
+    user: {
+      email: req.user.email,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName
+    }
   });
 }
 
