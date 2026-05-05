@@ -1,0 +1,503 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.signin-content {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  min-height: 600px;
+}
+
+.signin-image {
+  width: 50%;
+  padding: 30px;
+  background-color: #f9f9f9;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-image figure {
+  margin: 0;
+  width: 100%;
+}
+
+.signin-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.signup-image-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-image-link:hover {
+  text-decoration: underline;
+}
+
+.form-container {
+  width: 50%;
+  background-color: #f7f7f7;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.signin-form {
+  background-color: transparent;
+  padding: 0;
+}
+
+.signin-form h2 {
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.form-floating {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-floating > .form-control {
+  padding-left: 15px;
+  height: 56px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-floating > label {
+  padding-left: 10px;
+  color: #999;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-check-input {
+  margin-right: 8px;
+}
+
+.form-check-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.btn {
+  margin-top: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup-link p {
+  color: #888;
+  font-size: 14px;
+  margin: 0;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 700px;
+  margin: 40px auto;
+  min-height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .signin-content {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .signin-image,
+  .form-container {
+    width: 100%;
+  }
+
+  .signin-image {
+    padding: 20px;
+    min-height: 300px;
+  }
+
+  .signin-image img {
+    max-width: 300px;
+  }
+
+  .form-container {
+    padding: 25px;
+  }
+
+  .signin-form h2 {
+    font-size: 20px;
+  }
+}
+
+h1, h2 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #f9f9f9;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: #1e90ff;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 144, 255, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  border-left: 4px solid;
+}
+
+.alert-error {
+  background: #ffebee;
+  color: #c62828;
+  border-left-color: #c62828;
+}
+
+.alert-success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-left-color: #2e7d32;
+}
+
+.alert-warning {
+  background: #fff3e0;
+  color: #e65100;
+  border-left-color: #e65100;
+}
+
+.token-timer {
+  background: #f5f5f5;
+  border: 2px solid #1e90ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.timer-label {
+  display: block;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.timer-value {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1e90ff;
+  font-family: 'Courier New', monospace;
+  margin: 10px 0;
+}
+
+.timer-value.warning {
+  color: #ff9800;
+}
+
+.timer-value.danger {
+  color: #f44336;
+}
+
+.token-info {
+  background: #f9f9f9;
+  border-left: 4px solid #1e90ff;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.token-label {
+  color: #666;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.token-text {
+  color: #333;
+  font-family: 'Courier New', monospace;
+  word-wrap: break-word;
+}
+
+.user-info {
+  background: #f0f7ff;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.user-info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-info-item:last-child {
+  border-bottom: none;
+}
+
+.user-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.user-value {
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-group button {
+  flex: 1;
+}
+
+.button-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.button-secondary:hover {
+  background: #e0e0e0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.links {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.links a {
+  color: #1e90ff;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 15px;
+}
+
+.nav-links a,
+.nav-links span {
+  color: #1e90ff;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 5px 0;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.nav-links a.active {
+  color: #0066cc;
+  border-bottom-color: #0066cc;
+}
+
+.nav-links a:hover {
+  color: #0066cc;
+}
+
+.expiry-warning {
+  color: #f44336;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1e90ff 0%, #0066cc 100%);
+  width: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.progress-fill.warning {
+  background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%);
+}
+
+.progress-fill.danger {
+  background: linear-gradient(90deg, #f44336 0%, #d32f2f 100%);
+}
+
+.welcome-card {
+  background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%);
+  color: white;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 5px 20px rgba(30, 144, 255, 0.3);
+}
+
+.welcome-greeting {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-card .user-info {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid rgba(255, 255, 255, 0.5);
+  margin-top: 15px;
+}
+
+.welcome-card .user-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.welcome-card .user-value {
+  color: white;
+  font-weight: 500;
+}

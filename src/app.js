@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('./config/cors-config');
 const authRoutes = require('./routes/authRoutes');
+const path = require('path');
 
 const app = express();
 
 // Middleware
 app.use(cors);
 app.use(express.json());
+
+// Serve static files
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
 app.use('/api/auth', authRoutes);

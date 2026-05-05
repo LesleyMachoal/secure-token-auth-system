@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Token Auth</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome! 👋</h1>
+    <div id="dashboardAlert"></div>
+
+    <!-- User Welcome Info Card -->
+    <div class="welcome-card">
+      <img src="/images/user.png" alt="User Avatar" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;">
+      <div class="welcome-greeting" id="welcomeGreeting">Loading...</div>
+      <div class="user-info" id="userInfoCard">
+        <div class="user-info-item">
+          <span class="user-label">Email</span>
+          <span class="user-value" id="userEmail">-</span>
+        </div>
+        <div class="user-info-item">
+          <span class="user-label">User ID</span>
+          <span class="user-value" id="userId">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token Timer -->
+    <div class="token-timer">
+      <span class="timer-label">⏱️ Token Expiration Timer</span>
+      <div class="timer-value" id="timerValue">60s</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <small style="color: #666;">Your token will expire when the timer reaches 0</small>
+    </div>
+
+    <!-- Token Display -->
+    <div class="token-info">
+      <div class="token-label">Your Full Token (Click to Copy):</div>
+      <input type="text" id="tokenDisplay" readonly style="width: 100%; padding: 10px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer;" value="Loading..." title="Click to copy">
+    </div>
+
+    <!-- Verification Result -->
+    <div id="verificationResult" class="hidden"></div>
+
+    <!-- Manual Token Verification Section -->
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee;">
+      <h3>🔍 Manual Token Verification</h3>
+      <div class="form-group">
+        <label for="manualTokenInput">Paste a token to verify:</label>
+        <textarea id="manualTokenInput" style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 12px;" placeholder="Paste token here..."></textarea>
+      </div>
+      <button id="verifyManualTokenBtn" type="button">✓ Verify Pasted Token</button>
+    </div>
+
+    <!-- Manual Verification Result -->
+    <div id="manualVerificationResult" class="hidden" style="margin-top: 15px;"></div>
+
+    <!-- Action Buttons -->
+    <div class="button-group">
+      <button id="copyTokenBtn" type="button">📋 Copy Token</button>
+      <button id="verifyTokenBtn" type="button">✓ Verify Token</button>
+      <button id="refreshBtn" type="button">🔄 Refresh Token</button>
+      <button id="logoutBtn" type="button" class="button-secondary">🚪 Logout</button>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
